@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>DM NPI TEAM – Control Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('hub.static', filename='favicon.png') }}">
+  <style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: radial-gradient(circle at top, #0f172a, #020617 70%);
+    color: #e5e7eb;
+  }
+
+  .header {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: 2px;
+    color: #e5e7eb;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .systems {
+    height: calc(100% - 64px);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    padding: 36px;
+  }
+
+  .system-card {
+    position: relative;
+    border-radius: 16px;
+    padding: 28px;
+    background: linear-gradient(
+      160deg,
+      rgba(255,255,255,0.06),
+      rgba(255,255,255,0.01)
+    );
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.08),
+      0 18px 40px rgba(0,0,0,0.45);
+    cursor: pointer;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+
+  .system-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.55);
+  }
+
+  .system-strip {
+    height: 6px;
+    border-radius: 4px;
+    margin-bottom: 18px;
+  }
+
+  .system-content {
+    height: calc(100% - 24px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .system-content h2 {
+    font-size: 40px;
+    margin: 0;
+    letter-spacing: 2px;
+    color: #f9fafb;
+  }
+
+  .system-content p {
+    margin-top: 12px;
+    font-size: 16px;
+    color: #d1d5db;
+    max-width: 90%;
+  }
+
+  .system-meta {
+    margin-top: 24px;
+    font-size: 13px;
+    color: #9ca3af;
+  }
+
+  .cena .system-strip {
+    background: linear-gradient(90deg, #2563eb, #60a5fa);
+  }
+
+  .eos .system-strip {
+    background: linear-gradient(90deg, #16a34a, #4ade80);
+  }
+
+  .peridot .system-strip {
+    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+  }
+
+  .system-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .system-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.18;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .system-content,
+  .system-strip {
+    position: relative;
+    z-index: 1;
+  }
+
+    html, body {
+    caret-color: transparent;
+  }
+
+  body * {
+    user-select: none;
+    cursor: default;
+  }
+
+  input,
+  textarea,
+  select,
+  [contenteditable="true"] {
+    user-select: text;
+    caret-color: auto;
+    cursor: text;
+  }
+  </style>
+</head>
+<body>
+<div class="header">DM NPI TEAM</div>
+<div class="systems">
+  <div class="system-card cena" onclick="openProject('A')">
+    <img class="system-bg"
+         src="{{ url_for('hub.static', filename='images/cena.png') }}"
+         alt="CENA">
+    <div class="system-strip"></div>
+    <div class="system-content">
+      <h2>CENA</h2>
+      <p>Centaur‑A Dashboard Realtime</p>
+      <div class="system-meta">
+        ▸ Realtime Production Flow<br>
+        ▸ Lot & Phase Monitoring
+      </div>
+    </div>
+  </div>
+  <div class="system-card eos" onclick="openProject('B')">
+    <img class="system-bg"
+         src="{{ url_for('hub.static', filename='images/eos.png') }}"
+         alt="EOS">
+    <div class="system-strip"></div>
+    <div class="system-content">
+      <h2>EOS</h2>
+      <p>EOS Dashboard Realtime</p>
+      <div class="system-meta">
+        ▸ Realtime Production Flow<br>
+        ▸ Lot & Phase Monitoring
+      </div>
+    </div>
+  </div>
+  <div class="system-card peridot" onclick="openProject('C')">
+    <img class="system-bg"
+         src="{{ url_for('hub.static', filename='images/peridot.png') }}"
+         alt="Peridot">
+    <div class="system-strip"></div>
+    <div class="system-content">
+      <h2>Peridot</h2>
+      <p>Peridot Dashboard Realtime</p>
+      <div class="system-meta">
+        ▸ Realtime Production Flow<br>
+        ▸ Lot & Phase Monitoring
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function openProject(code) {
+  const base = window.location.origin;
+  const urls = {
+    A: `${base}/NPI_CentaurA/`,
+    B: `${base}/NPI_EOS/`,
+    C: `${base}/NPI_Peridot/`
+  };
+  window.open(urls[code], "_blank");
+}
+</script>
+</body>
+</html>
