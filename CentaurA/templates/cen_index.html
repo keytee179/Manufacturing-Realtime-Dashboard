@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="{{ url_for('centaur.static', filename='favicon.png') }}">
+  <title>Centaur-A Realtime Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('centaur.static', filename='css/main.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <div class="title">
+    {{ dashboard_title or "Centaur-A Realtime Dashboard" }}
+  </div>
+  <button class="btn-sub" onclick="openSubDashboard()">
+    🔗 Sub Inline
+  </button>
+  <div id="dataSource" class="data-source">
+    Source: -
+  </div>
+</header>
+<main class="dashboard">
+  <section id="process-realtime">
+    <div class="legend">
+      <strong>Process Realtime</strong>
+      <span class="lot green">Processing</span>
+      <span class="lot yellow">Waiting</span>
+      <span class="lot red">Warning</span>
+      <span class="lot blue">Finished</span>
+      <span class="lot gray">Offline</span>
+      <div class="pr-filter">
+        <label>
+          <input type="radio" name="procMode" value="all" checked>
+          ALL
+        </label>
+        <label>
+          <input type="radio" name="procMode" value="have_lot">
+          Process have Lot
+        </label>
+      </div>
+      <div class="pr-phase-filter">
+        <div id="phaseDropdown" class="phase-dropdown">
+          <div class="phase-label">Select Phase</div>
+          <div class="phase-menu hidden"></div>
+        </div>
+      </div>
+      <button id="phaseResetBtn" class="btn btn-primary">
+        ⟳ Reset
+      </button>
+      <div class="legend-config" id="phaseHeaderRight">
+        <span class="legend-title"></span>
+      </div>
+    </div>
+    <div class="pr-header">
+      <div class="h-no">No</div>
+      <div class="h-process">Process</div>
+      <div class="h-phases" id="phaseHeader"></div>
+    </div>
+    <div class="pr-body" id="processBody"></div>
+  </section>
+  <section class="right-panel">
+    <section id="pbo-panel">
+      <div class="panel-header">
+        <strong>PBO QTY by Process</strong>
+      </div>
+      <div class="pbo-body" id="pboBody"></div>
+    </section>
+    <section id="process-flow-chart">
+      <div class="panel-header chart-header">
+        <strong class="chart-title">Config Failure Rate</strong>
+        <div class="chart-controls">
+          <div class="dropdown" id="chartCfgDropdown">
+            <span class="dropdown-label">Select Build</span>
+            <div class="dropdown-menu hidden"></div>
+          </div>
+          <div class="dropdown" id="chartLotDropdown">
+            <span class="dropdown-label">Select Lot</span>
+            <div class="dropdown-menu hidden"></div>
+          </div>
+          <button id="chartResetBtn" class="btn btn-secondary btn-sm">
+            Reset
+          </button>
+        </div>
+      </div>
+      <div class="chart-body">
+        <div id="chart"></div>
+      </div>
+    </section>
+  </section>
+</main>
+<div id="phasePopup" class="popup hidden"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script src="{{ url_for('centaur.static', filename='js/app.js') }}"></script>
+</body>
+</html>
